@@ -19,11 +19,13 @@ const studentRoute = require("./routes/students");
 const commentRoute = require("./routes/comment");
 const teacherRoute = require("./routes/teacher");
 const loginRoute = require("./routes/login");
+const rankRoute = require("./routes/ranking");
 
 // All Routes
 app.use("/student", studentRoute);
 app.use("/login", loginRoute);
 app.use("/comment", commentRoute);
 app.use("/teacher", teacherRoute);
+app.use("/rank", rankRoute);
 
 app.listen(5000, () => console.log("Example app listening on port 5000!"));

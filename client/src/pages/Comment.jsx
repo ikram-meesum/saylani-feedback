@@ -90,7 +90,7 @@ const Comment = () => {
           <span className="sr-only">Info</span>
           <div>
             <span className="font-medium">Important!</span> Please submit your
-            feedback regarding your teacher and remember your message can not
+            feedback regarding your teacher and remember your message can not be
             change.
           </div>
         </div>

@@ -18,41 +18,44 @@ const login = () => {
     reset,
   } = useForm();
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     console.log(data);
 
-    axios
-      .post("http://localhost:5000/login", {
+    try {
+      const response = await axios.post("http://localhost:5000/login", {
         email: data.email,
         password: data.password,
-      })
-      .then(
-        (response) => {
-          console.log("Login Data: ", response.data);
-          sessionStorage.setItem("sid", response.data._id);
-          // setSid(data._id);
-          alert("Login Successfully!");
-          // redirect("/comment");
-          const storedValue = sessionStorage.getItem("sid");
-          console.log("session id: ", storedValue);
-          navigate(`/comment/${response.data._id}/${response.data.teacher_id}`);
-        },
-        (error) => {
-          console.log(error.message);
-        }
-      );
+      });
+      if (response.data == null) {
+        alert("Invalid username or password");
+      } else {
+        // alert("Login Successfully!");
+        console.log(response.data);
+        sessionStorage.setItem("sid", response.data._id);
+        navigate(`/comment/${response.data._id}/${response.data.teacher_id}`);
+      }
+    } catch (error) {
+      console.log(error);
+    }
 
-    // const loginStudent = () => {
-    //     axios
-    //       .get("http://" + ip.address + ":3001/depart")
-    //       .then((response) => {
-    //         //console.log("depart:", response.data);
-    //         setDepart(response.data);
-    //       })
-    //       .catch((error) => {
-    //         console.log("Error from get depart function: ", error);
-    //       });
-    //   };
+    // axios
+    //   .post("http://localhost:5000/login", {
+    //     email: data.email,
+    //     password: data.password,
+    //   })
+    //   .then(
+    //     (response) => {
+    //       console.log("Login Data: ", response.data);
+    //       sessionStorage.setItem("sid", response.data._id);
+    //
+    //       const storedValue = sessionStorage.getItem("sid");
+    //       console.log("session id: ", storedValue);
+    //       navigate(`/comment/${response.data._id}/${response.data.teacher_id}`);
+    //     },
+    //     (error) => {
+    //       console.log(error.message);
+    //     }
+    //   );
   };
   return (
     <>

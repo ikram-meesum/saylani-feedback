@@ -12,6 +12,8 @@ import Teacher from "./pages/Dashboard/Teacher.jsx";
 import AllStudent from "./pages/Dashboard/AllStudent.jsx";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Ranking from "./pages/Dashboard/Ranking.jsx";
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -40,6 +42,10 @@ const router = createBrowserRouter([
   {
     path: "/dashboard/student",
     element: <AllStudent />,
+  },
+  {
+    path: "/dashboard/rank",
+    element: <Ranking />,
   },
 ]);
 

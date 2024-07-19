@@ -7,7 +7,7 @@ route.get("/", (req, res) => {
   res.send("Please login");
 });
 
-route.post("/", async (req, res) => {
+route.post("/", (req, res) => {
   try {
     Student.findOne({ email: req.body.email, password: req.body.password })
       .then((data) => {
