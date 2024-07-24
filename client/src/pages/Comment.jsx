@@ -18,7 +18,7 @@ const Comment = () => {
 
   async function getData() {
     try {
-      const res = await axios("http://localhost:5000/comment");
+      const res = await axios(`http://localhost:5000/student-comment/${id}`);
       const data = await res.data;
       console.log(data);
       setAllComment(data);
