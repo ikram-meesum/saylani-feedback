@@ -7,68 +7,63 @@ const Teacher = require("../models/teacher.modal");
 
 route.get("/", async (req, res) => {
   // const sid = req.params.id;
+
+  // function compare( a, b ) {
+  //   if ( a.rating < b.rating ){
+  //     return -1;
+  //   }
+  //   if ( a.rating > b.rating ){
+  //     return 1;
+  //   }
+  //   return 0;
+  // }
+
+  // objs.sort( compare );
+
   let allData = [];
   let teacherData = [];
-
   try {
     const teacher = await Teacher.find({}).exec();
-    console.log("Teacher Data: ", teacher);
+    // console.log(teacher);
 
     for (i = 0; i < teacher.length; i++) {
-      console.log("i: ", teacher[i]._id);
-
+      //     console.log("i: ", teacher[i]._id);
       doc = await Comment.find({ teacherId: teacher[i]._id })
-        .sort({ _id: -1 })
-        .limit(1)
-        //     //   .populate("studentId", "sname")
+        .sort({ teacherId: 1 })
         .populate("teacherId", "teacher")
-        //     // .select("teacherId rating")
         .exec();
-      // if (doc == null || doc == "" || doc == undefined) {
       allData.push(doc);
-      // }
     }
-    // console.log("alldata: ", allData);
-
-    // allData = allData.filter((item) => !!item);
-
-    // var filtered = allData.filter(function (el) {
-    //   return el != null;
-    // });
-
     var result = allData.filter((e) => e.length);
-    console.log("test : ", result);
+    //   console.log("test : ", result);
 
-    // console.log("test:", filtered);
-
-    // console.log("test", allData);
-
-    // doc = await Comment.find({})
-    //   .sort({ _id: -1 })
-    //   // .limit(1)
-    //   //     //   .populate("studentId", "sname")
-    //   //     // .populate("teacherId", "teacher")
-    //   //     // .select("teacherId rating")
-    //   .exec();
-    // });
-
-    // let doc = [];
-    // teacher.forEach((element) => {
-    //   console.log("teacher id : ", element._id);
-    //   doc = Comment.find({ teacherId: element._id })
-    //     .sort({ _id: -1 })
-    //     .limit(1)
-    //     //   .populate("studentId", "sname")
-    //     // .populate("teacherId", "teacher")
-    //     // .select("teacherId rating")
-    //     .exec();
-    // });
-
-    // console.log("doc: ", doc);
     res.json(result);
   } catch (err) {
-    console.log("Error occured from get comment", err);
+    console.log("Error: ", err);
   }
+
+  // -------------------------- SINGLE RESULT ---------------------------
+  // try {
+  //   const teacher = await Teacher.find({}).exec();
+  //   console.log("Teacher Data: ", teacher);
+
+  //   for (i = 0; i < teacher.length; i++) {
+  //     console.log("i: ", teacher[i]._id);
+
+  //     doc = await Comment.find({ teacherId: teacher[i]._id })
+  //       .sort({ _id: -1 })
+  //       .limit(1)
+  //       .populate("teacherId", "teacher")
+  //       .exec();
+  //     allData.push(doc);
+  //   }
+  //   var result = allData.filter((e) => e.length);
+  //   console.log("test : ", result);
+
+  //   res.json(result);
+  // } catch (err) {
+  //   console.log("Error occured from get comment", err);
+  // }
 });
 
 route.post("/", async (req, res) => {

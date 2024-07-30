@@ -85,14 +85,14 @@ export default function AllStudent() {
     <>
       <Navbar />
       <AnimationPage>
-        <h2 className="text-2xl text-center font-medium mt-9 mb-5 text-slate-800">
-          All Student Record
+        <h2 className="text-3xl text-center font-medium mt-9 mb-5 text-slate-800">
+          All Students Record
         </h2>
 
         <button
           type="button"
           onClick={getPDF}
-          className="bg-white text-sm font-normal duration-300 text-blue-500 hover:text-white hover:bg-blue-500 border border-blue-500 rounded-md ml-5 py-2 px-5"
+          className="bg-white text-sm font-normal duration-300 text-slate-800 hover:text-white hover:bg-slate-700 border border-slate-800 rounded-md ml-5 py-2 px-5"
         >
           Get Print
         </button>
@@ -116,14 +116,20 @@ export default function AllStudent() {
                     FATHER NAME
                   </th>
 
-                  <th scope="col" className="py-3 pr-10">
-                    CREATED
+                  <th scope="col" className="pl-5 py-3">
+                    ROLL #
                   </th>
+
                   <th scope="col" className="pr-5 py-3">
                     TEACHER
                   </th>
+
                   <th scope="col" className="pr-5 w-24 py-3">
                     BATCH
+                  </th>
+
+                  <th scope="col" className="py-3 pr-10">
+                    CREATED
                   </th>
                 </tr>
               </thead>
@@ -147,13 +153,20 @@ export default function AllStudent() {
                           {student.fname}
                         </td>
 
-                        <td className="py-3">
-                          {dayjs(student.createdAt).format("DD-MMM-YYYY")}
+                        <td className="pl-3 text-gray-500">
+                          {/* {prod.productname.substring(0, 35)}... */}
+                          {student.rollno}
                         </td>
+
                         <td className="mr-3 py-3">
                           {student.teacher_id.teacher}
                         </td>
+
                         <td className="mr-3 py-3">{student.batch}</td>
+
+                        <td className="py-3">
+                          {dayjs(student.createdAt).format("DD-MMM-YYYY")}
+                        </td>
                       </tr>
                     );
                   })}

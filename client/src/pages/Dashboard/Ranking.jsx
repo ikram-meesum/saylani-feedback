@@ -23,11 +23,81 @@ export default function Ranking() {
     getData();
   }, []);
 
+  const final = [];
+  const count = [];
+  const tname = [];
+
+  let rank1 = 0;
+  let rank2 = 0;
+  let rank3 = 0;
+  let rank4 = 0;
+
+  let i = 0,
+    j = 0;
+  let name = "";
+  let check = "";
+  let found = 0;
+
+  for (i = 0; i < teacher.length; i++) {
+    rank1 = 0;
+    rank2 = 0;
+    rank3 = 0;
+    rank4 = 0;
+    for (j = 0; j < teacher[i].length; j++) {
+      // tname.push(teacher[i][j].teacherId.teacher);
+      // if (tname.length <= 0) {
+      //   tname.push(teacher[i][j].teacherId.teacher);
+      // }
+
+      name = teacher[i][j].teacherId.teacher;
+
+      if (name == teacher[i][j].teacherId.teacher) {
+        if (teacher[i][j].rating == "01-Excellent") {
+          rank1++;
+        }
+        if (teacher[i][j].rating == "02-Best") {
+          rank2++;
+        }
+        if (teacher[i][j].rating == "03-Normal") {
+          rank3++;
+        }
+        if (teacher[i][j].rating == "04-Unsatisfy") {
+          rank4++;
+        }
+      }
+    }
+    tname.push({
+      name: name,
+      r1: rank1,
+      r2: rank2,
+      r3: rank3,
+      r4: rank4,
+    });
+
+    // let check = tname.some((el) => el === name);
+    // console.log("check: ", check);
+    // if (check === false) {
+    // console.log("not exist");
+    // } else {
+    // console.log("exist");
+    // }
+
+    // if (tname.includes(name) == teacher[0][0].teacherId.teacher) {
+    //   console.log("teacher exist");
+    // } else {
+    //   console.log("not exist");
+    // }
+  }
+  // console.log("final name: ", tname);
+  // console.log("rank: ", rank1, rank2, rank3, rank4);
+
   return (
     <>
       <Navbar />
       <AnimationPage>
-        <h2 className="text-2xl text-center">Teacher Ranking</h2>
+        <h2 className="text-3xl font-medium mt-7 text-center">
+          Teacher Ranking Summary
+        </h2>
 
         {/* start alert */}
         <div
@@ -53,8 +123,8 @@ export default function Ranking() {
 
         <div className="w-3/4 mx-auto">
           <div className="grid grid-cols-4 gap-4">
-            {teacher &&
-              teacher.map((t, ind) => {
+            {tname &&
+              tname.map((t, ind) => {
                 return (
                   <div
                     key={ind}
@@ -67,26 +137,74 @@ export default function Ranking() {
                         alt="image description"
                       />
                     </div>
-                    {t.rating}
 
-                    {t &&
-                      t.map((item, i) => {
-                        return (
-                          <>
-                            <p key={i} className="text-center font-medium">
-                              {item.teacherId.teacher}
-                            </p>
-                            <p className="text-center text-blue-400 font-normal">
-                              Rank: {item.rating}
-                            </p>
-                          </>
-                        );
-                      })}
+                    <p className="text-center font-medium mb-5">{t.name}</p>
+
+                    <div className="flex justify-between mt-3">
+                      <p className="ml-3">
+                        {/* <span className="text-green-600">Excellant:</span> */}
+                        <span className="inline-flex border border-green-400 items-center py-1.5 px-3 rounded-md text-sm font-medium  text-green-800">
+                          Excellant
+                        </span>
+                      </p>
+                      <p className="mr-3">
+                        <span className="inline-flex border border-green-400 items-center py-1.5 px-3 rounded-md text-xs font-medium  text-green-800">
+                          {" "}
+                          {t.r1}
+                        </span>
+                      </p>
+                    </div>
+
+                    <div className="flex justify-between mt-3">
+                      <p className="ml-3">
+                        {/* <span className="text-green-600">Excellant:</span> */}
+                        <span className="inline-flex border border-red-300 items-center py-1.5 px-3 rounded-md text-sm font-medium  text-red-800">
+                          Best
+                        </span>
+                      </p>
+                      <p className="mr-3">
+                        <span className="inline-flex border border-red-300 items-center py-1.5 px-3 rounded-md text-xs font-medium text-red-800">
+                          {" "}
+                          {t.r2}
+                        </span>
+                      </p>
+                    </div>
+
+                    <div className="flex justify-between mt-3">
+                      <p className="ml-3">
+                        {/* <span className="text-green-600">Excellant:</span> */}
+                        <span className="inline-flex border border-blue-300 items-center py-1.5 px-3 rounded-md text-sm font-medium text-blue-800">
+                          Normal
+                        </span>
+                      </p>
+                      <p className="mr-3">
+                        <span className="inline-flex border border-blue-300 items-center py-1.5 px-3 rounded-md text-xs font-medium text-blue-800">
+                          {" "}
+                          {t.r3}
+                        </span>
+                      </p>
+                    </div>
+
+                    <div className="flex justify-between mt-3">
+                      <p className="ml-3">
+                        {/* <span className="text-green-600">Excellant:</span> */}
+                        <span className="inline-flex border border-slate-300 items-center py-1.5 px-3 rounded-md text-sm font-medium  text-slate-800">
+                          Unsatisfy
+                        </span>
+                      </p>
+                      <p className="mr-3">
+                        <span className="inline-flex border border-slate-300 items-center py-1.5 px-3 rounded-md text-xs font-medium text-slate-800">
+                          {" "}
+                          {t.r4}
+                        </span>
+                      </p>
+                    </div>
                   </div>
                 );
               })}
           </div>
         </div>
+        <p className="my-9">&nbsp;</p>
       </AnimationPage>
     </>
   );

@@ -13,6 +13,20 @@ route.get("/", async (req, res) => {
   }
 });
 
+route.get("/:id", async (req, res) => {
+  const sid = req.params.id;
+
+  try {
+    const doc = await Student.find({ _id: sid })
+      .populate("teacher_id", "teacher")
+      .exec();
+    console.log(doc);
+    res.json(doc);
+  } catch (err) {
+    console.log("Error occured from get teacher id wise: ", err);
+  }
+});
+
 route.post("/", async (req, res) => {
   console.log("INSERTED");
 

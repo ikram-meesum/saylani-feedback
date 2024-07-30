@@ -9,15 +9,22 @@ route.get("/", (req, res) => {
 
 route.post("/", (req, res) => {
   try {
-    Student.findOne({ email: req.body.email, password: req.body.password })
+    Student.findOne({
+      email: req.body.email,
+      password: req.body.password,
+      rollno: req.body.rollno,
+    })
       .then((data) => {
         res.json(data);
       })
       .catch((err) => {
-        res.json({ Message: "Invalid username and password.", err });
+        res.json({
+          Message: "Invalid username and password or roll number.",
+          err,
+        });
       });
   } catch (err) {
-    console.error("Error ocured from signin student.", err);
+    console.error("Error ocured from login a student.", err);
   }
 });
 

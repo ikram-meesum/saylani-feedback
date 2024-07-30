@@ -127,7 +127,7 @@ export default function Teacher() {
                   className={
                     // !pImage
                     //   ? "bg-gray-200 text-slate-400 font-bold py-2 px-6 rounded"
-                    `bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded mt-2`
+                    `bg-slate-800 hover:bg-slate-700 text-white font-bold py-2 px-6 rounded mt-2`
                   }
                 >
                   INSERT

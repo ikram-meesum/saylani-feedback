@@ -22,7 +22,12 @@ export default function Home() {
 
   const onSubmit = (data) => {
     console.log(data);
-    navigate("/dashboard/student");
+    if (data.email === "admin@gmail.com" && data.password === "123456") {
+      alert("login successfully");
+      navigate("/dashboard/student");
+    } else {
+      alert("Login failed please try again");
+    }
   };
 
   return (

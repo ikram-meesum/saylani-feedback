@@ -13,6 +13,7 @@ const Comment = () => {
 
   // console.log("params : ", id);
 
+  const [student, setStudent] = useState([]);
   const [allComment, setAllComment] = useState([]);
   const [added, setAdd] = useState("");
 
@@ -27,8 +28,20 @@ const Comment = () => {
     }
   }
 
+  async function getStudent() {
+    try {
+      const res = await axios(`http://localhost:5000/student/${id}`);
+      const data = await res.data;
+      console.log(data);
+      setStudent(data);
+    } catch (err) {
+      console.log("Error occured from getdata method: ", err);
+    }
+  }
+
   useEffect(() => {
     getData();
+    getStudent();
   }, [added]);
 
   const {
@@ -70,76 +83,87 @@ const Comment = () => {
       <Navbar />
       <Toaster position="top-center" reverseOrder={false} />
       <AnimationPage>
-        <h1 className="text-2xl text-center text-slate-800 font-semibold mt-10 mb-10">
-          Students Feedback
-        </h1>
-        {/* start alert */}
-        <div
-          className="flex items-center p-4 mt-6 mb-6 text-sm text-blue-800 border border-blue-300 rounded-lg bg-blue-50 w-3/4 m-auto"
-          role="alert"
-        >
-          <svg
-            className="flex-shrink-0 inline w-4 h-4 me-3"
-            aria-hidden="true"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="currentColor"
-            viewBox="0 0 20 20"
-          >
-            <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
-          </svg>
-          <span className="sr-only">Info</span>
-          <div>
-            <span className="font-medium">Important!</span> Please submit your
-            feedback regarding your teacher and remember your message can not be
-            change.
-          </div>
+        <h3 className="text-center mt-8 text-3xl text-slate-800 mb-8 font-medium">
+          Student Feedback
+        </h3>
+
+        <div className="w-3/4 mx-auto">
+          {student.map((std, ind) => {
+            return (
+              <div
+                key={ind}
+                className="flex justify-between border border-gray-200 rounded-md p-2"
+              >
+                <div className="">Student Name:</div>
+                <div className="font-medium">{std.sname}</div>
+                <div className="">Father Name:</div>
+                <div className="font-medium">{std.fname}</div>
+              </div>
+            );
+          })}
         </div>
-        {/* end alert */}
+
+        <div className="mt-4 w-3/4 mx-auto">
+          {student.map((std, ind) => {
+            return (
+              <div
+                key={ind}
+                className="flex justify-between border border-gray-200 rounded-md p-2"
+              >
+                <div className="">Batch Number:</div>
+                <div className="font-medium">{std.batch}</div>
+                <div className="">Course:</div>
+                <div className="font-medium">Web Development</div>
+              </div>
+            );
+          })}
+        </div>
 
         <form className=" mt-5 w-3/4 mx-auto" onSubmit={handleSubmit(onSubmit)}>
-          <div className="md:col-span-3">
-            <label>Comments</label>
-            <input
-              type="text"
-              {...register("comment", { required: true })}
-              // name="city"
-              // id="city"
-              className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-              // value=""
-              placeholder="Student Comments"
-            />
-            {errors.comment && (
-              <p className="text-red-500">Student comments is required.</p>
-            )}
-          </div>
-          <div className="mt-3">
-            <label>Ranking</label>
-            <select
-              {...register("rating")}
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            >
-              <option value="01-Excellent">01-Excellent</option>
-              <option value="02-Best">02-Best</option>
-              <option value="03-Normal">03-Normal</option>
-              <option value="04-Unsatisfy">04-Unsatisfy</option>
-            </select>
-            {errors.rating && <p className="text-red-500">Select a ranking.</p>}
-          </div>
-
-          <div className="mt-3">
+          <div className="flex justify-between">
+            <div className="w-1/2 mr-5">
+              <input
+                type="text"
+                {...register("comment", { required: true })}
+                // name="city"
+                // id="city"
+                className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                // value=""
+                placeholder="Student Comments"
+              />
+              {errors.comment && (
+                <p className="text-red-500">Student comments is required.</p>
+              )}
+            </div>
+            {/*  */}
+            <div className="w-64 mr-5">
+              <select
+                {...register("rating")}
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              >
+                <option value="01-Excellent">01-Excellent</option>
+                <option value="02-Best">02-Best</option>
+                <option value="03-Normal">03-Normal</option>
+                <option value="04-Unsatisfy">04-Unsatisfy</option>
+              </select>
+              {errors.rating && (
+                <p className="text-red-500">Select a ranking.</p>
+              )}
+            </div>
             <div className="">
               <button
                 // disabled={!pImage}
                 className={
                   // !pImage
                   //   ? "bg-gray-200 text-slate-400 font-bold py-2 px-6 rounded"
-                  `bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded mt-2`
+                  `bg-slate-800 hover:bg-slate-700 text-white font-semibold py-2 px-6 rounded`
                 }
               >
                 Insert Feedback
               </button>
             </div>
           </div>
+          {/*  */}
         </form>
 
         {/* table section start */}

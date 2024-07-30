@@ -10,6 +10,7 @@ import RegisterStudent from "./pages/Dashboard/RegisterStudent.jsx";
 import StudentFeedback from "./pages/Dashboard/StudentFeedback.jsx";
 import Teacher from "./pages/Dashboard/Teacher.jsx";
 import AllStudent from "./pages/Dashboard/AllStudent.jsx";
+import BatchWise from "./pages/Dashboard/BatchWise.jsx";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Ranking from "./pages/Dashboard/Ranking.jsx";
@@ -46,6 +47,10 @@ const router = createBrowserRouter([
   {
     path: "/dashboard/rank",
     element: <Ranking />,
+  },
+  {
+    path: "/dashboard/batch",
+    element: <BatchWise />,
   },
 ]);
 

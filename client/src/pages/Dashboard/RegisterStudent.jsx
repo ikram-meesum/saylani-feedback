@@ -51,6 +51,7 @@ const StudentForm = () => {
           address: data.address,
           password: data.password,
           teacher_id: data.teacher,
+          rollno: data.roll,
         })
         .then(
           (response) => {
@@ -250,7 +251,7 @@ const StudentForm = () => {
                 className={
                   // !pImage
                   //   ? "bg-gray-200 text-slate-400 font-bold py-2 px-6 rounded"
-                  `bg-blue-500 mt-6 hover:bg-blue-700 text-white font-medium py-2 px-2 text-sm rounded`
+                  `bg-slate-800 mt-6 hover:bg-slate-700 text-white font-medium py-2 px-2 text-sm rounded`
                 }
               >
                 ADD STUDENT

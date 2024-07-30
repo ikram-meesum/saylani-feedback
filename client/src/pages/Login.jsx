@@ -25,9 +25,10 @@ const login = () => {
       const response = await axios.post("http://localhost:5000/login", {
         email: data.email,
         password: data.password,
+        rollno: data.rollno,
       });
       if (response.data == null) {
-        alert("Invalid username or password");
+        alert("Invalid username or password or roll number");
       } else {
         // alert("Login Successfully!");
         console.log(response.data);
@@ -37,25 +38,6 @@ const login = () => {
     } catch (error) {
       console.log(error);
     }
-
-    // axios
-    //   .post("http://localhost:5000/login", {
-    //     email: data.email,
-    //     password: data.password,
-    //   })
-    //   .then(
-    //     (response) => {
-    //       console.log("Login Data: ", response.data);
-    //       sessionStorage.setItem("sid", response.data._id);
-    //
-    //       const storedValue = sessionStorage.getItem("sid");
-    //       console.log("session id: ", storedValue);
-    //       navigate(`/comment/${response.data._id}/${response.data.teacher_id}`);
-    //     },
-    //     (error) => {
-    //       console.log(error.message);
-    //     }
-    //   );
   };
   return (
     <>
@@ -100,9 +82,28 @@ const login = () => {
                 placeholder="Valid email"
               />
               {errors.email && (
-                <p className="text-red-500">Valid email is required.</p>
+                <p className="text-red-500 text-sm">Valid email is required.</p>
               )}
             </div>
+
+            <div className="md:col-span-3 mt-3">
+              <label>Roll #</label>
+              <input
+                type="text"
+                {...register("rollno", { required: true })}
+                // name="city"
+                // id="city"
+                className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                // value=""
+                placeholder="Enter roll number"
+              />
+              {errors.rollno && (
+                <p className="text-red-500 text-sm">
+                  Enter valid roll number is required.
+                </p>
+              )}
+            </div>
+
             <div className="mt-3">
               <label>Password</label>
               <input
@@ -112,7 +113,7 @@ const login = () => {
                 placeholder="Enter Password"
               />
               {errors.password && (
-                <p className="text-red-500">
+                <p className="text-red-500 text-sm">
                   Password is atleast 6 characters.
                 </p>
               )}
@@ -125,7 +126,7 @@ const login = () => {
                   className={
                     // !pImage
                     //   ? "bg-gray-200 text-slate-400 font-bold py-2 px-6 rounded"
-                    `bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded mt-2`
+                    `bg-slate-800 hover:bg-slate-700 text-white font-semibold py-2 px-6 rounded mt-2`
                   }
                 >
                   Login

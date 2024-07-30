@@ -3,15 +3,14 @@ let route = express.Router();
 
 let Comment = require("../models/comments.modal");
 
-route.get("/:id", async (req, res) => {
-  const sid = req.params.id;
-  console.log("SID : ", sid);
+route.get("/", async (req, res) => {
+  //   const sid = req.params.id;
+  //   console.log("SID : ", sid);
 
   try {
-    const doc = await Comment.find({ studentId: sid })
+    const doc = await Comment.find({})
       .populate("studentId", "sname")
       .populate("teacherId", "teacher")
-      .sort({ _id: -1 })
       .exec();
 
     console.log("The comment is ", doc);

@@ -21,6 +21,7 @@ const studentCommentRoute = require("./routes/student-comment");
 const teacherRoute = require("./routes/teacher");
 const loginRoute = require("./routes/login");
 const rankRoute = require("./routes/ranking");
+const summaryRoute = require("./routes/summary");
 
 // All Routes
 app.use("/student", studentRoute);
@@ -29,5 +30,6 @@ app.use("/comment", commentRoute);
 app.use("/student-comment", studentCommentRoute);
 app.use("/teacher", teacherRoute);
 app.use("/rank", rankRoute);
+app.use("/summary", summaryRoute);
 
 app.listen(5000, () => console.log("Example app listening on port 5000!"));
