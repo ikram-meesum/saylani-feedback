@@ -8,6 +8,7 @@ import AnimationPage from "./AnimationPage";
 
 export default function AllStudent() {
   const [allStudent, setAllStudent] = useState([]);
+  const [filter, setFilter] = useState("");
 
   async function getData() {
     try {
@@ -19,6 +20,34 @@ export default function AllStudent() {
       console.log("Error occured from getdata method: ", err);
     }
   }
+
+  // =============== SEARCH CODE ===============
+  const lowercasedFilter = filter.toLowerCase();
+
+  const filteredData = allStudent.filter((item) => {
+    if (
+      (item["sname"] &&
+        item["sname"].toLowerCase().includes(lowercasedFilter)) ||
+      (item["fname"] &&
+        item["fname"].toLowerCase().includes(lowercasedFilter)) ||
+      (item["batch"] &&
+        item["batch"].toLowerCase().includes(lowercasedFilter)) ||
+      (item["rollno"] &&
+        item["rollno"].toLowerCase().includes(lowercasedFilter)) ||
+      (item["teacher_id"] &&
+        item["teacher_id"].teacher &&
+        item["teacher_id"].teacher.toLowerCase().includes(lowercasedFilter))
+      // (item["supervisor_id"] &&
+      //   item["supervisor_id"].super_name &&
+      //   item["supervisor_id"].super_name
+      //     .toLowerCase()
+      //     .includes(lowercasedFilter))
+    ) {
+      return true;
+    } else {
+      return false;
+    }
+  });
 
   useEffect(() => {
     getData();
@@ -89,13 +118,24 @@ export default function AllStudent() {
           All Students Record
         </h2>
 
-        <button
-          type="button"
-          onClick={getPDF}
-          className="bg-white text-sm font-normal duration-300 text-slate-800 hover:text-white hover:bg-slate-700 border border-slate-800 rounded-md ml-5 py-2 px-5"
-        >
-          Get Print
-        </button>
+        <div className="flex justify-center">
+          <input
+            type="text"
+            value={filter}
+            onChange={(e) => {
+              setFilter(e.target.value);
+            }}
+            className="h-10 border mt-1 rounded px-4 bg-gray-50"
+          />
+
+          <button
+            type="button"
+            onClick={getPDF}
+            className="bg-white text-sm font-normal duration-300 text-slate-800 hover:text-white hover:bg-slate-700 border border-slate-800 rounded-md ml-3 px-2"
+          >
+            Get Print
+          </button>
+        </div>
 
         <section>
           <div className="border rounded-lg mx-5 mt-5 overflow-hidden shadow-lg">
@@ -124,6 +164,10 @@ export default function AllStudent() {
                     TEACHER
                   </th>
 
+                  <th scope="col" className="pr-5 py-3">
+                    COURSE
+                  </th>
+
                   <th scope="col" className="pr-5 w-24 py-3">
                     BATCH
                   </th>
@@ -134,8 +178,8 @@ export default function AllStudent() {
                 </tr>
               </thead>
               <tbody>
-                {allStudent &&
-                  allStudent.map((student, ind) => {
+                {filteredData &&
+                  filteredData.map((student, ind) => {
                     return (
                       <tr
                         key={ind}
@@ -161,6 +205,8 @@ export default function AllStudent() {
                         <td className="mr-3 py-3">
                           {student.teacher_id.teacher}
                         </td>
+
+                        <td className="mr-3 py-3">{student.course}</td>
 
                         <td className="mr-3 py-3">{student.batch}</td>
 

@@ -11,6 +11,7 @@ let studentSchema = mongoose.Schema(
     password: { type: String },
     rollno: { type: String },
     address: { type: String },
+    course: { type: String },
     teacher_id: { type: mongoose.Schema.Types.ObjectId, ref: "teacher" },
   },
   { timestamps: true }

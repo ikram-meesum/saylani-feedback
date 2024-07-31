@@ -41,6 +41,7 @@ route.post("/", async (req, res) => {
     rollno: req.body.rollno,
     address: req.body.address,
     teacher_id: req.body.teacher_id,
+    course: req.body.course,
   });
 
   console.log("server: ", studentData);
