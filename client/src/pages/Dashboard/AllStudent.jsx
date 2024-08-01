@@ -119,19 +119,22 @@ export default function AllStudent() {
         </h2>
 
         <div className="flex justify-center">
-          <input
-            type="text"
-            value={filter}
-            onChange={(e) => {
-              setFilter(e.target.value);
-            }}
-            className="h-10 border mt-1 rounded px-4 bg-gray-50"
-          />
+          <div>
+            <input
+              type="text"
+              value={filter}
+              placeholder="Search any..."
+              onChange={(e) => {
+                setFilter(e.target.value);
+              }}
+              className="border w-80 border-gray-400 h-9 mt-1 rounded px-3 bg-gray-50"
+            />
+          </div>
 
           <button
             type="button"
             onClick={getPDF}
-            className="bg-white text-sm font-normal duration-300 text-slate-800 hover:text-white hover:bg-slate-700 border border-slate-800 rounded-md ml-3 px-2"
+            className="bg-white text-sm font-normal duration-300 text-slate-800 hover:text-white hover:bg-slate-700 border border-slate-800 rounded-md ml-3 py-0 px-3"
           >
             Get Print
           </button>

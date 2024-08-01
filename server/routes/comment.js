@@ -29,6 +29,7 @@ route.post("/", async (req, res) => {
     studentId: req.body.studentId,
     teacherId: req.body.teacherId,
     rating: req.body.rating,
+    nextComment: req.body.nextComment,
   });
 
   console.log("server: ", commentData);

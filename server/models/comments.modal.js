@@ -7,6 +7,7 @@ let commentSchema = mongoose.Schema(
     teacherId: { type: mongoose.Schema.Types.ObjectId, ref: "teacher" },
     rating: { type: String },
     teacher: { type: String },
+    nextComment: { type: Date },
   },
   { timestamps: true }
 );

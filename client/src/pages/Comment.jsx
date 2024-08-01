@@ -16,6 +16,7 @@ const Comment = () => {
   const [student, setStudent] = useState([]);
   const [allComment, setAllComment] = useState([]);
   const [added, setAdd] = useState("");
+  // const [nextComment, setNextComment] = useState("");
 
   async function getData() {
     try {
@@ -51,31 +52,46 @@ const Comment = () => {
     reset,
   } = useForm();
 
+  console.log("single: ", allComment[0].nextComment);
+
+  const nextDate = allComment[0].nextComment;
+
   const onSubmit = (data) => {
     console.log(data);
 
-    axios
-      .post("http://localhost:5000/comment", {
-        comments: data.comment,
-        studentId: id,
-        teacherId: tid,
-        rating: data.rating,
-      })
-      .then(
-        (response) => {
-          setAdd(response.data);
-          console.log(response.data);
-          toast.success("Comment inserted successfully!");
-          reset();
-          // alert("Comment Inserted!");
+    const currentDate = new Date();
+    console.log(currentDate);
 
-          // redirect("/comment");
-          // navigate("/comment");
-        },
-        (error) => {
-          console.log(error.message);
-        }
-      );
+    var someDate = new Date();
+    var numberOfDaysToAdd = 90;
+    var result = someDate.setDate(someDate.getDate() + numberOfDaysToAdd);
+    // console.log("add date: ", new Date(result));
+    console.log("add date: ", result);
+    // setNextComment(result);
+
+    if (new Date(currentDate) < new Date(nextDate)) {
+      alert("you are not allow due to next comment date");
+    } else {
+      axios
+        .post("http://localhost:5000/comment", {
+          comments: data.comment,
+          studentId: id,
+          teacherId: tid,
+          rating: data.rating,
+          nextComment: result,
+        })
+        .then(
+          (response) => {
+            setAdd(response.data);
+            console.log(response.data);
+            toast.success("Comment inserted successfully!");
+            reset();
+          },
+          (error) => {
+            console.log(error.message);
+          }
+        );
+    }
   };
 
   return (
@@ -186,6 +202,10 @@ const Comment = () => {
                   <th scope="col" className="pr-2 w-28 py-3">
                     RANK
                   </th>
+
+                  <th scope="col" className="pr-2 w-28 py-3">
+                    NEXT DATE
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -207,6 +227,9 @@ const Comment = () => {
                           {dayjs(coment.createdAt).format("DD-MMM-YYYY")}
                         </td>
                         <td className="mr-6 py-3">{coment.rating}</td>
+                        <td className="mr-6 py-3">
+                          {dayjs(coment.nextComment).format("DD-MMM-YYYY")}
+                        </td>
                       </tr>
                     );
                   })}
