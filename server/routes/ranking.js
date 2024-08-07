@@ -3,23 +3,10 @@ let route = express.Router();
 
 let Comment = require("../models/comments.modal");
 const Teacher = require("../models/teacher.modal");
+const Student = require("../models/student.modal");
 // const Teacher = require("../models/teacher.modal");
 
 route.get("/", async (req, res) => {
-  // const sid = req.params.id;
-
-  // function compare( a, b ) {
-  //   if ( a.rating < b.rating ){
-  //     return -1;
-  //   }
-  //   if ( a.rating > b.rating ){
-  //     return 1;
-  //   }
-  //   return 0;
-  // }
-
-  // objs.sort( compare );
-
   let allData = [];
   let teacherData = [];
   try {
@@ -32,12 +19,47 @@ route.get("/", async (req, res) => {
         .sort({ teacherId: 1 })
         .populate("teacherId", "teacher")
         .exec();
+
       allData.push(doc);
     }
-    var result = allData.filter((e) => e.length);
-    //   console.log("test : ", result);
 
-    res.json(result);
+    // console.log("add data : ", allData);
+
+    var result = allData.filter((e) => e.length);
+
+    let tid = 0;
+    let newTid = 0;
+
+    // ================ SECOND TASK ================
+
+    for (a = 0; a < result.length; a++) {
+      for (b = 0; b < result[a].length; b++) {
+        // console.log("abc : ", result[a][b].teacherId._id);
+        // newTid = result[a][b].teacherId._id;
+
+        teacherData.push(result[a][b].teacherId._id);
+      }
+    }
+    uniq = [...new Set(teacherData)];
+
+    let finalCount = [];
+
+    for (c = 0; c < uniq.length; c++) {
+      // Count Student
+      std = await Student.countDocuments({
+        teacher_id: uniq[c],
+      }).exec();
+      // console.log("std: ", std);
+      finalCount.push({ tid: uniq[c], count: std });
+    }
+
+    // for (y = 0; y < result.length; y++) {
+    //   result[y].push(finalCount[y]);
+    // }
+    console.log("FINAL : ", result);
+
+    res.json({ comments: result, count: finalCount });
+    // res.json(result);
   } catch (err) {
     console.log("Error: ", err);
   }

@@ -7,13 +7,17 @@ import AnimationPage from "./AnimationPage";
 
 export default function Ranking() {
   const [teacher, setTeacher] = useState([]);
+  const [totalStudent, setTotalStudent] = useState([]);
 
   async function getData() {
     try {
       const res = await axios("http://localhost:5000/rank");
       const data = await res.data;
-      console.log(data);
-      setTeacher(data);
+      console.log("test : ", data["comments"]);
+      console.log("secnd : ", data["count"]);
+
+      setTeacher(data["comments"]);
+      setTotalStudent(data["count"]);
     } catch (err) {
       console.log("Error occured from getdata method: ", err);
     }
@@ -21,35 +25,35 @@ export default function Ranking() {
 
   useEffect(() => {
     getData();
+    // countTeacher();
   }, []);
 
-  const final = [];
-  const count = [];
   const tname = [];
+  const final = [];
 
   let rank1 = 0;
   let rank2 = 0;
   let rank3 = 0;
   let rank4 = 0;
+  let cont = 0;
 
   let i = 0,
     j = 0;
   let name = "";
-  let check = "";
-  let found = 0;
+  let finalCount = 0;
 
   for (i = 0; i < teacher.length; i++) {
     rank1 = 0;
     rank2 = 0;
     rank3 = 0;
     rank4 = 0;
-    for (j = 0; j < teacher[i].length; j++) {
-      // tname.push(teacher[i][j].teacherId.teacher);
-      // if (tname.length <= 0) {
-      //   tname.push(teacher[i][j].teacherId.teacher);
-      // }
+    cont = totalStudent[i].count;
+    console.log("total : ", totalStudent[i].count);
 
+    for (j = 0; j < teacher[i].length; j++) {
       name = teacher[i][j].teacherId.teacher;
+      // console.log("xyz: ", teacher[i][j]);
+      // final.push(teacher[i][j].teacherId._id);
 
       if (name == teacher[i][j].teacherId.teacher) {
         if (teacher[i][j].rating == "01-Excellent") {
@@ -66,30 +70,16 @@ export default function Ranking() {
         }
       }
     }
+    console.log("lenghth: ", cont);
     tname.push({
       name: name,
       r1: rank1,
       r2: rank2,
       r3: rank3,
       r4: rank4,
+      totstudent: cont,
     });
-
-    // let check = tname.some((el) => el === name);
-    // console.log("check: ", check);
-    // if (check === false) {
-    // console.log("not exist");
-    // } else {
-    // console.log("exist");
-    // }
-
-    // if (tname.includes(name) == teacher[0][0].teacherId.teacher) {
-    //   console.log("teacher exist");
-    // } else {
-    //   console.log("not exist");
-    // }
   }
-  // console.log("final name: ", tname);
-  // console.log("rank: ", rank1, rank2, rank3, rank4);
 
   return (
     <>
@@ -121,7 +111,7 @@ export default function Ranking() {
         </div>
         {/* end alert */}
 
-        <div className="w-3/4 mx-auto">
+        <div className="w-4/5 mx-auto">
           <div className="grid grid-cols-4 gap-4">
             {tname &&
               tname.map((t, ind) => {
@@ -138,7 +128,43 @@ export default function Ranking() {
                       />
                     </div>
 
-                    <p className="text-center font-medium mb-5">{t.name}</p>
+                    <p className="text-center font-medium mb-3">{t.name}</p>
+                    <p className="text-center text-sm text-blue-500">
+                      Total Student: {t.totstudent}
+                    </p>
+
+                    {/* PERCENTAGE */}
+                    <div className="flex justify-between mx-3 mt-2">
+                      <p className="text-center text-xs font-medium text-green-800">
+                        Excel{" "}
+                        {(t.r1 / t.totstudent) * 100 == 0
+                          ? ((t.r1 / t.totstudent) * 100).toFixed(0)
+                          : ((t.r1 / t.totstudent) * 100).toFixed(2)}
+                        %
+                      </p>
+                      <p className="text-center text-xs font-medium text-red-800">
+                        Best{" "}
+                        {(t.r2 / t.totstudent) * 100 == 0
+                          ? ((t.r2 / t.totstudent) * 100).toFixed(0)
+                          : ((t.r2 / t.totstudent) * 100).toFixed(2)}
+                        %
+                      </p>
+
+                      <p className="text-center text-xs font-medium text-blue-800">
+                        Normal{" "}
+                        {(t.r3 / t.totstudent) * 100 == 0
+                          ? ((t.r3 / t.totstudent) * 100).toFixed(0)
+                          : ((t.r3 / t.totstudent) * 100).toFixed(2)}
+                        %
+                      </p>
+                      <p className="text-center text-xs font-medium text-slate-800">
+                        Unsatisfy{" "}
+                        {(t.r4 / t.totstudent) * 100 == 0
+                          ? ((t.r4 / t.totstudent) * 100).toFixed(0)
+                          : ((t.r4 / t.totstudent) * 100).toFixed(2)}
+                        %
+                      </p>
+                    </div>
 
                     <div className="flex justify-between mt-3">
                       <p className="ml-3">

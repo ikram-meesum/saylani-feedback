@@ -52,26 +52,21 @@ const Comment = () => {
     reset,
   } = useForm();
 
-  console.log("single: ", allComment[0].nextComment);
-
-  const nextDate = allComment[0].nextComment;
+  // console.log("single: ", allComment[0].nextComment);
+  console.log("all comments: ", allComment);
 
   const onSubmit = (data) => {
     console.log(data);
 
     const currentDate = new Date();
-    console.log(currentDate);
+    // console.log(currentDate);
 
-    var someDate = new Date();
-    var numberOfDaysToAdd = 90;
-    var result = someDate.setDate(someDate.getDate() + numberOfDaysToAdd);
-    // console.log("add date: ", new Date(result));
-    console.log("add date: ", result);
-    // setNextComment(result);
+    if (allComment.length <= 0) {
+      let someDate = new Date();
+      let numberOfDaysToAdd = 90;
+      let result = someDate.setDate(someDate.getDate() + numberOfDaysToAdd);
+      // console.log("add date: ", result);
 
-    if (new Date(currentDate) < new Date(nextDate)) {
-      alert("you are not allow due to next comment date");
-    } else {
       axios
         .post("http://localhost:5000/comment", {
           comments: data.comment,
@@ -91,6 +86,37 @@ const Comment = () => {
             console.log(error.message);
           }
         );
+    } else {
+      const nextDate = allComment[0].nextComment;
+
+      let someDate = new Date();
+      let numberOfDaysToAdd = 90;
+      let result = someDate.setDate(someDate.getDate() + numberOfDaysToAdd);
+      console.log("add date: ", result);
+
+      if (new Date(currentDate) < new Date(nextDate)) {
+        alert("you are not allow due to next comment date");
+      } else {
+        axios
+          .post("http://localhost:5000/comment", {
+            comments: data.comment,
+            studentId: id,
+            teacherId: tid,
+            rating: data.rating,
+            nextComment: result,
+          })
+          .then(
+            (response) => {
+              setAdd(response.data);
+              console.log(response.data);
+              toast.success("Comment inserted successfully!");
+              reset();
+            },
+            (error) => {
+              console.log(error.message);
+            }
+          );
+      }
     }
   };
 
