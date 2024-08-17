@@ -87,7 +87,7 @@ export default function StudentFeedback() {
     <>
       <Navbar />
       <AnimationPage>
-        <h2 className="text-2xl mt-4 font-semibold text-center">
+        <h2 className="text-3xl mt-8 font-semibold text-center">
           All Student Feedback
         </h2>
 

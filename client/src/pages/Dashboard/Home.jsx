@@ -1,14 +1,8 @@
-import { useState } from "react";
 import { useForm } from "react-hook-form";
-
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
-import toast, { Toaster } from "react-hot-toast";
-// import { motion } from "framer-motion";
 import AnimationPage from "./AnimationPage";
 
-import Navbar from "./Navbar";
+import Navbar from "./NavbarHome";
 
 export default function Home() {
   const navigate = useNavigate();
@@ -23,7 +17,7 @@ export default function Home() {
   const onSubmit = (data) => {
     console.log(data);
     if (data.email === "admin@gmail.com" && data.password === "123456") {
-      alert("login successfully");
+      // alert("login successfully");
       navigate("/dashboard/student");
     } else {
       alert("Login failed please try again");
@@ -74,7 +68,7 @@ export default function Home() {
                 placeholder="Valid email"
               />
               {errors.email && (
-                <p className="text-red-500">Valid email is required.</p>
+                <p className="text-red-500 text-sm">Valid email is required.</p>
               )}
             </div>
             <div className="mt-3">
@@ -86,7 +80,7 @@ export default function Home() {
                 placeholder="Enter Password"
               />
               {errors.password && (
-                <p className="text-red-500">
+                <p className="text-red-500 text-sm">
                   Password is atleast 6 characters.
                 </p>
               )}
@@ -99,7 +93,7 @@ export default function Home() {
                   className={
                     // !pImage
                     //   ? "bg-gray-200 text-slate-400 font-bold py-2 px-6 rounded"
-                    `bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded mt-2`
+                    `bg-slate-800 hover:bg-slate-900 text-white font-semibold py-2 px-6 rounded mt-2`
                   }
                 >
                   Login

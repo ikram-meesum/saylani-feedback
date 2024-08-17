@@ -4,14 +4,12 @@ let route = express.Router();
 let Comment = require("../models/comments.modal");
 const Teacher = require("../models/teacher.modal");
 const Student = require("../models/student.modal");
-// const Teacher = require("../models/teacher.modal");
 
 route.get("/", async (req, res) => {
   let allData = [];
   let teacherData = [];
   try {
     const teacher = await Teacher.find({}).exec();
-    // console.log(teacher);
 
     for (i = 0; i < teacher.length; i++) {
       //     console.log("i: ", teacher[i]._id);
@@ -22,21 +20,13 @@ route.get("/", async (req, res) => {
 
       allData.push(doc);
     }
-
-    // console.log("add data : ", allData);
-
     var result = allData.filter((e) => e.length);
-
-    let tid = 0;
-    let newTid = 0;
 
     // ================ SECOND TASK ================
 
     for (a = 0; a < result.length; a++) {
       for (b = 0; b < result[a].length; b++) {
         // console.log("abc : ", result[a][b].teacherId._id);
-        // newTid = result[a][b].teacherId._id;
-
         teacherData.push(result[a][b].teacherId._id);
       }
     }
@@ -49,13 +39,9 @@ route.get("/", async (req, res) => {
       std = await Student.countDocuments({
         teacher_id: uniq[c],
       }).exec();
-      // console.log("std: ", std);
       finalCount.push({ tid: uniq[c], count: std });
     }
 
-    // for (y = 0; y < result.length; y++) {
-    //   result[y].push(finalCount[y]);
-    // }
     console.log("FINAL : ", result);
 
     res.json({ comments: result, count: finalCount });
@@ -63,29 +49,6 @@ route.get("/", async (req, res) => {
   } catch (err) {
     console.log("Error: ", err);
   }
-
-  // -------------------------- SINGLE RESULT ---------------------------
-  // try {
-  //   const teacher = await Teacher.find({}).exec();
-  //   console.log("Teacher Data: ", teacher);
-
-  //   for (i = 0; i < teacher.length; i++) {
-  //     console.log("i: ", teacher[i]._id);
-
-  //     doc = await Comment.find({ teacherId: teacher[i]._id })
-  //       .sort({ _id: -1 })
-  //       .limit(1)
-  //       .populate("teacherId", "teacher")
-  //       .exec();
-  //     allData.push(doc);
-  //   }
-  //   var result = allData.filter((e) => e.length);
-  //   console.log("test : ", result);
-
-  //   res.json(result);
-  // } catch (err) {
-  //   console.log("Error occured from get comment", err);
-  // }
 });
 
 route.post("/", async (req, res) => {

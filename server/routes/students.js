@@ -5,8 +5,11 @@ let Student = require("../models/student.modal");
 
 route.get("/", async (req, res) => {
   try {
-    const doc = await Student.find({}).populate("teacher_id", "teacher").exec();
-    console.log(doc);
+    const doc = await Student.find({})
+      .populate("teacher_id", "teacher")
+      .sort({ _id: -1 })
+      .exec();
+    // console.log(doc);
     res.json(doc);
   } catch (err) {
     console.log("Error occured from get teacher", err);
@@ -15,12 +18,10 @@ route.get("/", async (req, res) => {
 
 route.get("/:id", async (req, res) => {
   const sid = req.params.id;
-
   try {
     const doc = await Student.find({ _id: sid })
       .populate("teacher_id", "teacher")
       .exec();
-    // console.log(doc);
     res.json(doc);
   } catch (err) {
     console.log("Error occured from get teacher id wise: ", err);

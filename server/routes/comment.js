@@ -6,14 +6,10 @@ let Comment = require("../models/comments.modal");
 route.get("/", async (req, res) => {
   // const sid = req.params.id;
   try {
-    //const doc = await Comment.find({});
-
     const doc = await Comment.find({})
       .populate("studentId", "sname")
       .populate("teacherId", "teacher")
       .exec();
-    // .populate("depart_id", "ward_name")
-    // prints "The author is Ian Fleming"
     console.log("The comment is ", doc);
 
     // console.log(doc);

@@ -90,7 +90,7 @@ const Comment = () => {
       const nextDate = allComment[0].nextComment;
 
       let someDate = new Date();
-      let numberOfDaysToAdd = 90;
+      let numberOfDaysToAdd = 30;
       let result = someDate.setDate(someDate.getDate() + numberOfDaysToAdd);
       console.log("add date: ", result);
 

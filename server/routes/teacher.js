@@ -7,26 +7,11 @@ route.get("/", async (req, res) => {
   // const sid = req.params.id;
   try {
     const doc = await Teacher.find({});
-    console.log(doc);
     res.json(doc);
   } catch (err) {
     console.log("Error occured from get teacher", err);
   }
 });
-
-// 668a9f45da1a59966034083e
-// 66961aec9f9bf98421574820
-
-// route.get("/total/:id", async (req, res) => {
-//   const tid = req.params.id;
-//   try {
-//     const doc = await Teacher.find({ _id: tid });
-//     console.log(doc);
-//     res.json(doc);
-//   } catch (err) {
-//     console.log("Error occured from get teacher", err);
-//   }
-// });
 
 route.post("/", async (req, res) => {
   const teacherData = new Teacher({

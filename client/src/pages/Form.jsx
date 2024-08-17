@@ -34,30 +34,6 @@ const StudentForm = () => {
           console.log(error.message);
         }
       );
-
-    // };
-    // if (data.password.length <= 5) {
-    //   errors.password = "At least 6 character required.";
-    // } else {
-    //   try {
-    //     createUserWithEmailAndPassword(auth, data.email, data.password)
-    //       .then((userCredential) => {
-    //         const user = userCredential.user;
-    //         console.log("user", user);
-    //         setRain(true);
-    //         // console.log("email: ", user.auth.email);
-    //         addUser(data);
-    //         toast.success("Signup Successfully!");
-    //       })
-    //       .catch((error) => {
-    //         console.log(error.code);
-    //         console.log(error.message);
-    //         alert(error.message);
-    //       });
-    //   } catch (err) {
-    //     console.log("Error occured from add user method: ", err);
-    //   }
-    //   // }
   };
   return (
     <>

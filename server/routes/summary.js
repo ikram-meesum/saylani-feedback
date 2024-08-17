@@ -5,15 +5,12 @@ let Comment = require("../models/comments.modal");
 
 route.get("/", async (req, res) => {
   //   const sid = req.params.id;
-  //   console.log("SID : ", sid);
-
   try {
     const doc = await Comment.find({})
       .populate("studentId", "sname")
       .populate("teacherId", "teacher")
       .exec();
 
-    console.log("The comment is ", doc);
     res.json(doc);
   } catch (err) {
     console.log("Error occured from get comment", err);
@@ -27,8 +24,6 @@ route.post("/", async (req, res) => {
     teacherId: req.body.teacherId,
     rating: req.body.rating,
   });
-
-  console.log("server: ", commentData);
 
   try {
     const result = await commentData.save();

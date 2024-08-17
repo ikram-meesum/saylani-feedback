@@ -74,7 +74,7 @@ const StudentForm = () => {
       <Toaster position="top-center" reverseOrder={false} />
 
       <AnimationPage>
-        <h1 className="text-2xl text-center text-slate-800 font-semibold mt-10 mb-10">
+        <h1 className="text-3xl text-center text-slate-800 font-semibold mt-10 mb-10">
           Student Registration
         </h1>
         {/* start alert */}

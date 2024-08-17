@@ -59,7 +59,7 @@ export default function Teacher() {
       <Navbar />
       <Toaster position="top-center" reverseOrder={false} />
       <AnimationPage>
-        <h3 className="text-2xl text-center font-semibold mt-5">
+        <h3 className="text-3xl text-center font-semibold mt-5">
           Teacher Record
         </h3>
 
