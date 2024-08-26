@@ -5,7 +5,17 @@ const cors = require("cors");
 var bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 
-mongoose.connect("mongodb://0.0.0.0:27017/smit9");
+const port = process.env.PORT || 5000;
+
+// mongoose.connect("mongodb://0.0.0.0:27017/smit9");
+
+const connectDB = async () => {
+  await mongoose.connect(
+    "mongodb+srv://ikrammeesum:WqTIvyEhWRYCKbhb@smit9.86yzk.mongodb.net/smit09DB"
+  );
+  console.log("connected to database:", mongoose.connection.host);
+};
+connectDB();
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -32,4 +42,6 @@ app.use("/teacher", teacherRoute);
 app.use("/rank", rankRoute);
 app.use("/summary", summaryRoute);
 
-app.listen(5000, () => console.log("Example app listening on port 5000!"));
+app.listen(port, () =>
+  console.log(`Example app listening on port 5000! ${port}`)
+);
