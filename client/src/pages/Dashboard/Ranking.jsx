@@ -11,7 +11,7 @@ export default function Ranking() {
 
   async function getData() {
     try {
-      const res = await axios("http://localhost:5000/rank");
+      const res = await axios("https://server-theta-puce.vercel.app/rank");
       const data = await res.data;
       console.log("test : ", data["comments"]);
       console.log("secnd : ", data["count"]);

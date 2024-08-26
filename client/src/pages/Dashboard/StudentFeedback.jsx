@@ -13,7 +13,7 @@ export default function StudentFeedback() {
 
   async function getData() {
     try {
-      const res = await axios("http://localhost:5000/comment");
+      const res = await axios("https://server-theta-puce.vercel.app/comment");
       const data = await res.data;
       console.log(data);
       setAllComment(data);

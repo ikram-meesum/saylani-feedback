@@ -15,7 +15,7 @@ const StudentForm = () => {
     console.log(data);
 
     axios
-      .post("http://localhost:5000/student", {
+      .post("https://server-theta-puce.vercel.app/student", {
         sname: data.sname,
         fname: data.fname,
         email: data.email,

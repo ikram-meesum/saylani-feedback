@@ -15,7 +15,7 @@ const StudentForm = () => {
 
   async function getData() {
     try {
-      const res = await axios("http://localhost:5000/teacher");
+      const res = await axios("https://server-theta-puce.vercel.app/teacher");
       const data = await res.data;
       setAllTeacher(data);
     } catch (err) {

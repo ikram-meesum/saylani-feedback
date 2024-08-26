@@ -12,7 +12,7 @@ export default function AllStudent() {
 
   async function getData() {
     try {
-      const res = await axios("http://localhost:5000/student");
+      const res = await axios("https://server-theta-puce.vercel.app/student");
       const data = await res.data;
       console.log(data);
       setAllStudent(data);

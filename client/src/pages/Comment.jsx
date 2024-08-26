@@ -20,7 +20,9 @@ const Comment = () => {
 
   async function getData() {
     try {
-      const res = await axios(`http://localhost:5000/student-comment/${id}`);
+      const res = await axios(
+        `https://server-theta-puce.vercel.app/student-comment/${id}`
+      );
       const data = await res.data;
       console.log(data);
       setAllComment(data);
@@ -31,7 +33,9 @@ const Comment = () => {
 
   async function getStudent() {
     try {
-      const res = await axios(`http://localhost:5000/student/${id}`);
+      const res = await axios(
+        `https://server-theta-puce.vercel.app/student/${id}`
+      );
       const data = await res.data;
       console.log(data);
       setStudent(data);
@@ -68,7 +72,7 @@ const Comment = () => {
       // console.log("add date: ", result);
 
       axios
-        .post("http://localhost:5000/comment", {
+        .post("https://server-theta-puce.vercel.app/comment", {
           comments: data.comment,
           studentId: id,
           teacherId: tid,
@@ -98,7 +102,7 @@ const Comment = () => {
         alert("you are not allow due to next comment date");
       } else {
         axios
-          .post("http://localhost:5000/comment", {
+          .post("https://server-theta-puce.vercel.app/comment", {
             comments: data.comment,
             studentId: id,
             teacherId: tid,

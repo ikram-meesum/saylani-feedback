@@ -22,11 +22,14 @@ const login = () => {
     console.log(data);
 
     try {
-      const response = await axios.post("http://localhost:5000/login", {
-        email: data.email,
-        password: data.password,
-        rollno: data.rollno,
-      });
+      const response = await axios.post(
+        "https://server-theta-puce.vercel.app/login",
+        {
+          email: data.email,
+          password: data.password,
+          rollno: data.rollno,
+        }
+      );
       if (response.data == null) {
         alert("Invalid username or password or roll number");
       } else {
